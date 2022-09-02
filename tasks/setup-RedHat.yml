@@ -7,10 +7,9 @@
       - docker-engine
     state: absent
 
+# workaround for Connection failure: [ASN1] nested asn1 error (_ssl.c:4174)
 - name: Add Docker GPG key.
-  rpm_key:
-    key: "{{ docker_yum_gpg_key }}"
-    state: present
+  command: rpmkeys --import "{{ docker_yum_gpg_key }}"
 
 - name: Add Docker repository.
   get_url:
